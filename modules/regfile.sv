@@ -10,8 +10,8 @@ module regfile (input logic clk, we3,
 		end
 	end
 	
-	assign rd1 = regs[ra1];
-	assign rd2 = regs[ra2];
+	assign rd1 = (wa3==ra1 && (we3 && wa3 != 31)) ? wd3 : regs[ra1];
+	assign rd2 = (wa3==ra2 && (we3 && wa3 != 31)) ? wd3 : regs[ra2];
 	
 	always @(posedge clk)
 	begin
