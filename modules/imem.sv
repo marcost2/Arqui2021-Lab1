@@ -1,13 +1,13 @@
 module imem 
 #(parameter N = 32) // name and default value
-				(input logic [5:0] addr,
+				(input logic [6:0] addr,
 				 output logic [N-1:0] q);
-		logic [N-1:0] ROM [64];
+		logic [N-1:0] ROM [128];
 
 		initial 
            begin
            ROM = '{default:32'h00000000};
-			  ROM [0:63] ='{32'hf8000001,
+			  ROM [0:64] ='{32'hf8000001,
 32'hf8008002,
 32'hf8000203,
 32'h8b050083,
@@ -41,6 +41,7 @@ module imem
 32'hf8068007,
 32'hf807000c,
 32'hf807801f,
+32'h8b1f03ff,
 32'hb4000040,
 32'hf8080015,
 32'hf8088015,
@@ -71,13 +72,6 @@ module imem
 32'h8b1f03ff,
 32'hf81f83d9,
 32'hb400001f};
-
-
-
-
-
-
-
 			end
 		always_comb
 			begin
