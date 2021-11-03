@@ -19,6 +19,7 @@ module alu (input logic [63:0] a,
 	assign result = temp_result[63:0];
 	assign zero = (result === 64'b0) ? 1'b1 : 1'b0;
 	assign negative = (result[63] === 1'b1) ? 1'b1 : 1'b0;
-	assign overflow = 1'b0;
+	assign overflow = (ALUControl === 4'b0010) ? ((a[63] == b[63]) & (a[63] != result[63])) : 
+	((ALUControl === 4'b0110) ? ((a[63] ^ b[63]) & (a[63] ^ result[63])) : 1'b0);
 	assign Carry = temp_result[64];
 endmodule
