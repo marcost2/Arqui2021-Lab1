@@ -6,6 +6,7 @@ module datapath #(parameter N = 64)
 					input logic AluSrc,
 					input logic [3:0] AluControl,
 					input logic	Branch,
+					input logic condBranch,
 					input logic memRead,
 					input logic memWrite,
 					input logic regWrite,	
@@ -20,8 +21,8 @@ module datapath #(parameter N = 64)
 	logic [N-1:0] signImm_D, readData1_D, readData2_D;
 	logic zero_E, negative_E, Carry_E, overflow_E, write_flags_E;
 	logic [95:0] qIF_ID;
-	logic [270:0] qID_EX;
-	logic [206:0] qEX_MEM;
+	logic [271:0] qID_EX;
+	logic [207:0] qEX_MEM;
 	logic [134:0] qMEM_WB;
 	logic [3:0] CPSR;
 	
@@ -49,15 +50,15 @@ module datapath #(parameter N = 64)
 										.wa3_D(qMEM_WB[4:0]));				
 																									
 									
-	flopr 	#(271)	ID_EX 	(.clk(clk),
+	flopr 	#(272)	ID_EX 	(.clk(clk),
 										.reset(reset), 
-										.d({AluSrc, AluControl, Branch, memRead, memWrite, regWrite, memtoReg,	
+										.d({AluSrc, AluControl, Branch, condBranch, memRead, memWrite, regWrite, memtoReg,	
 											qIF_ID[95:32], signImm_D, readData1_D, readData2_D, qIF_ID[4:0]}),
 										.q(qID_EX));	
 	
 										
-	execute 	#(64) 	EXECUTE 	(.AluSrc(qID_EX[270]),
-										.AluControl(qID_EX[269:266]),
+	execute 	#(64) 	EXECUTE 	(.AluSrc(qID_EX[271]),
+										.AluControl(qID_EX[270:267]),
 										.PC_E(qID_EX[260:197]), 
 										.signImm_E(qID_EX[196:133]), 
 										.readData1_E(qID_EX[132:69]), 
@@ -77,15 +78,17 @@ module datapath #(parameter N = 64)
 										.d({zero_E,negative_E,Carry_E,overflow_E}),
 										.q(CPSR));
 								
-	flopr 	#(207)	EX_MEM 	(.clk(clk),
+	flopr 	#(208)	EX_MEM 	(.clk(clk),
 										.reset(reset), 
-										.d({qID_EX[265:261], PCBranch_E, CPSR,zero_E, aluResult_E, writeData_E, qID_EX[4:0]}),
+										.d({qID_EX[266:261], PCBranch_E, CPSR,zero_E, aluResult_E, writeData_E, qID_EX[4:0]}),
 										.q(qEX_MEM));	
 	
 
 										
-	memory				MEMORY	(.Branch_M(qEX_MEM[206]), 
+	memory				MEMORY	(.Branch_M(qEX_MEM[207]),
+										.condBranch_M(qEX_MEM[206]),
 										.zero_M(qEX_MEM[133]),
+										.bType(qEX_MEM[4:0]),
 										.CPSR(qEX_MEM[137:134]),
 										.PCSrc_M(PCSrc));
 			
