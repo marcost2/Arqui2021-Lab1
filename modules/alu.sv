@@ -1,4 +1,6 @@
-module alu (input logic [63:0] a,
+module alu 
+				#(parameter N = 64)
+				(input logic [63:0] a,
 				input logic [63:0] b,
 				input logic [3:0] ALUControl,
 				output logic [63:0] result,
