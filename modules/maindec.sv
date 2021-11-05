@@ -15,6 +15,8 @@ module maindec (input logic [10:0] Op,
 			11'b111_1100_0000 : { Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, condBranch,ALUOp } = 10'b1100010000;
 			//CBZ
 			11'b101_1010_0??? : { Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, condBranch,ALUOp } = 10'b1000001001;
+			//B.cond
+			11'b101_0100_0??? : { Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, condBranch,ALUOp } = 10'b0000000111;
 			default: { Reg2Loc, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, condBranch,ALUOp } = 10'b0;
 			endcase
 		end
