@@ -38,6 +38,6 @@ module memory 	(input logic Branch_M, condBranch_M,zero_M,
 			default: condBranch = 1'b0;
 		endcase
 	end
-	assign PCSrc_M = (Branch_M & zero_M) | condBranch;
+	assign PCSrc_M = (Branch_M & zero_M) | (condBranch & condBranch_M);
 	
 endmodule
