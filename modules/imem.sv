@@ -7,7 +7,7 @@ module imem
 		initial 
            begin
            ROM = '{default:32'h00000000};
-			  ROM [0:64] ='{32'hf8000001,
+			  ROM [0:70] ='{32'hf8000001,
 32'hf8008002,
 32'hf8000203,
 32'h8b050083,
@@ -42,7 +42,11 @@ module imem
 32'hf807000c,
 32'hf807801f,
 32'h8b1f03ff,
-32'hb4000040,
+32'h8b1f03ff,
+32'hb40000a0,
+32'h8b1f03ff,
+32'h8b1f03ff,
+32'h8b1f03ff,
 32'hf8080015,
 32'hf8088015,
 32'h8b0103e2,
@@ -71,8 +75,11 @@ module imem
 32'h8b1f03ff,
 32'h8b1f03ff,
 32'hf81f83d9,
+32'h8b1f03ff,
+32'h8b1f03ff,
 32'hb400001f};
-			end
+
+			  end
 		always_comb
 			begin
 				q = ROM[addr];

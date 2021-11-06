@@ -37,9 +37,14 @@ N = .dword 0x40
 	STUR X7, [X0, #104] 
 	STUR X12, [X0, #112] 
 	STUR XZR, [X0, #120]
+	ADD XZR, XZR, XZR 
+	ADD XZR, XZR, XZR
 	CBZ X0, loop1
+	ADD XZR, XZR, XZR 
+	ADD XZR, XZR, XZR 
+	ADD XZR, XZR, XZR
 	STUR X21, [X0, #128]
-	loop1: 
+	loop1:
 		STUR X21, [X0, #136]
 		ADD X2, XZR, X1
 	loop2:
