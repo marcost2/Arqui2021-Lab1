@@ -21,8 +21,8 @@ module datapath #(parameter N = 64)
 	logic [N-1:0] signImm_D, readData1_D, readData2_D;
 	logic zero_E, negative_E, Carry_E, overflow_E, write_flags_E;
 	logic [95:0] qIF_ID;
-	logic [271:0] qID_EX;
-	logic [207:0] qEX_MEM;
+	logic [270:0] qID_EX;
+	logic [202:0] qEX_MEM;
 	logic [134:0] qMEM_WB;
 	logic [3:0] CPSR;
 	
@@ -50,15 +50,15 @@ module datapath #(parameter N = 64)
 										.wa3_D(qMEM_WB[4:0]));				
 																									
 									
-	flopr 	#(272)	ID_EX 	(.clk(clk),
+	flopr 	#(271)	ID_EX 	(.clk(clk),
 										.reset(reset), 
-										.d({AluSrc, AluControl, Branch, condBranch, memRead, memWrite, regWrite, memtoReg,	
+										.d({AluSrc, AluControl, Branch, memRead, memWrite, regWrite, memtoReg,	
 											qIF_ID[95:32], signImm_D, readData1_D, readData2_D, qIF_ID[4:0]}),
 										.q(qID_EX));	
 	
 										
-	execute 	#(64) 	EXECUTE 	(.AluSrc(qID_EX[271]),
-										.AluControl(qID_EX[270:267]),
+	execute 	#(64) 	EXECUTE 	(.AluSrc(qID_EX[270]),
+										.AluControl(qID_EX[269:266]),
 										.PC_E(qID_EX[260:197]), 
 										.signImm_E(qID_EX[196:133]), 
 										.readData1_E(qID_EX[132:69]), 
@@ -77,19 +77,18 @@ module datapath #(parameter N = 64)
 										.enable(write_flags_E),
 										.d({zero_E,negative_E,Carry_E,overflow_E}),
 										.q(CPSR));
-								
-	flopr 	#(208)	EX_MEM 	(.clk(clk),
+									
+	flopr 	#(203)	EX_MEM 	(.clk(clk),
 										.reset(reset), 
-										.d({qID_EX[266:261], PCBranch_E, CPSR,zero_E, aluResult_E, writeData_E, qID_EX[4:0]}),
+										.d({qID_EX[265:261], PCBranch_E, zero_E, aluResult_E, writeData_E, qID_EX[4:0]}),
 										.q(qEX_MEM));	
 	
-
 										
-	memory				MEMORY	(.Branch_M(qEX_MEM[207]),
-										.condBranch_M(qEX_MEM[206]),
-										.zero_M(qEX_MEM[133]),
+	memory				MEMORY	(.Branch_M(qEX_MEM[202]),
+										.condBranch_M(condBranch),
 										.bType(qEX_MEM[4:0]),
-										.CPSR(qEX_MEM[137:134]),
+										.zero_M(qEX_MEM[133]),
+										.CPSR(CPSR),
 										.PCSrc_M(PCSrc));
 			
 	
@@ -98,12 +97,12 @@ module datapath #(parameter N = 64)
 	assign DM_addr = qEX_MEM[132:69];
 	
 	// Salida de señales de control:
-	assign DM_writeEnable = qEX_MEM[204];
-	assign DM_readEnable = qEX_MEM[205];
+	assign DM_writeEnable = qEX_MEM[200];
+	assign DM_readEnable = qEX_MEM[201];
 	
 	flopr 	#(135)	MEM_WB 	(.clk(clk),
 										.reset(reset), 
-										.d({qEX_MEM[203:202], qEX_MEM[132:69],	DM_readData, qEX_MEM[4:0]}),
+										.d({qEX_MEM[199:198], qEX_MEM[132:69],	DM_readData, qEX_MEM[4:0]}),
 										.q(qMEM_WB));
 		
 	
