@@ -3,19 +3,74 @@ N = .dword 0x40
 */
 	.text
 	.org 0x0000
+	STUR X1, [X0, #0]
+	STUR X2, [X0, #8]
+	STUR X3, [X16, #0]
+	ADD X3, X4, X5
 	ADD XZR, XZR, XZR
-    STUR X0, [X0, #0]
-	ADD	x9, XZR, x17
-	ADD	x10, XZR, XZR
-
-Loop:
-    ADD X10, x10, x16
-	SUB x9, x9, x1
-	cbz x9, End
-	cbz xzr, Loop
-
-End:
-    STUR X10, [X0, #0]
-
-Infloop:
-    CBZ XZR, Infloop
+	ADD XZR, XZR, XZR
+	STUR X3, [X0, #24]
+	SUB X3, X4, X5
+	SUB X4, XZR, X10
+	ADD XZR, XZR, XZR
+	STUR X3, [X0, #32]
+	STUR X4, [X0, #40]
+	ADD X4, X3, X4
+	SUB X5, X1, X3
+	ADD XZR, XZR, XZR
+	STUR X4, [X0, #48]
+	STUR X5, [X0, #56]
+	AND X5, X10, XZR
+	ADD XZR, XZR, XZR
+	LDUR X12, [X0, #0]
+	STUR X5, [X0, #64]
+	AND X5, X10, X3
+	AND X20, X20, X20
+	ORR X6, X11, XZR
+	STUR X5, [X0, #72] //Revisar
+	STUR X20, [X0, #80]
+	STUR X6, [X0, #88]
+	ORR X6, X11, X3
+	ADD X7, X12, XZR
+	ADD XZR, X13, X14
+	STUR X6, [X0, #96]
+	STUR X7, [X0, #104] 
+	STUR X12, [X0, #112] 
+	STUR XZR, [X0, #120]
+	ADD XZR, XZR, XZR 
+	ADD XZR, XZR, XZR
+	CBZ X0, loop1
+	ADD XZR, XZR, XZR 
+	ADD XZR, XZR, XZR 
+	ADD XZR, XZR, XZR
+	STUR X21, [X0, #128]
+	loop1:
+		STUR X21, [X0, #136]
+		ADD X2, XZR, X1
+	loop2:
+		ADD XZR, XZR, XZR 
+		ADD X24, XZR, X1
+		SUB X2, X2, X1
+		ADD XZR, XZR, XZR
+		ADD XZR, XZR, XZR
+		STUR X24, [X0, #144]
+		ADD X0, X0, X8
+		CBZ X2, loop2
+		ADD XZR, XZR, XZR
+		ADD XZR, XZR, XZR
+		STUR X30, [X0, #144] 
+		ADD X30, X30, X30
+		SUB X21, XZR, X21
+		ADD XZR, XZR, XZR
+		ADD X30, X30, X20
+		ADD XZR, XZR, XZR
+		ADD XZR, XZR, XZR
+		LDUR X25, [X30, #-8]
+		ADD X30, X30, X30
+		ADD XZR, XZR, XZR
+		ADD XZR, XZR, XZR
+		ADD X30, X30, X16
+		ADD XZR, XZR, XZR
+		ADD XZR, XZR, XZR
+		STUR X25, [X30, #-8]
+	finlup: CBZ XZR, finlup

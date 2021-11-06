@@ -7,7 +7,7 @@ module imem
 		initial 
            begin
            ROM = '{default:32'h00000000};
-			  ROM [0:64] ='{32'hf8000001,
+		   ROM [0:68] ='{32'hf8000001,
 32'hf8008002,
 32'hf8000203,
 32'h8b050083,
@@ -42,7 +42,11 @@ module imem
 32'hf807000c,
 32'hf807801f,
 32'h8b1f03ff,
-32'hb4000040,
+32'h8b1f03ff,
+32'hb40000a0,
+32'h8b1f03ff,
+32'h8b1f03ff,
+32'h8b1f03ff,
 32'hf8080015,
 32'hf8088015,
 32'h8b0103e2,
@@ -58,26 +62,22 @@ module imem
 32'h8b1f03ff,
 32'hf809001e,
 32'h8b1e03de,
-32'h8b0403cb,
-32'hf800012a,
-32'h8b01014a,
-32'h8b080129,
-32'hcb01016b,
-32'hb400004b,
-32'hb4ffff7f,
-32'h8b1f03e9,
-32'h8b1f03ea,
-32'h8b0303cb,
-32'h8a0e03ee,
-32'hf84001c9,
-32'h8b09014a,
-32'h8b0801ce,
-32'hcb01016b,
-32'hb400004b,
-32'hb4ffff7f,
-32'hf80001ca,
+32'hcb1503f5,
+32'h8b1f03ff,
+32'h8b1403de,
+32'h8b1f03ff,
+32'h8b1f03ff,
+32'hf85f83d9,
+32'h8b1e03de,
+32'h8b1f03ff,
+32'h8b1f03ff,
+32'h8b1003de,
+32'h8b1f03ff,
+32'h8b1f03ff,
+32'hf81f83d9,
 32'hb400001f};
-			end
+
+			  end
 		always_comb
 			begin
 				q = ROM[addr];
