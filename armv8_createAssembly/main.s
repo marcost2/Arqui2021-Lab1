@@ -41,8 +41,29 @@ lo:	ADDS X30, X30, X30
 
 hs: 
 	STUR X30, [X0, #0]
+	SUBS X30, X30, X1
+	ADD X0, X0, X8
+	B.MI mi
 	ADD XZR, XZR, XZR
 	ADD XZR, XZR, XZR
-
+	ADD XZR, XZR, XZR
+	CBZ XZR, fail
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+mi:
+	STUR X0, [X0, #0]
+	ADDS X0, X0, X8
+	B.PL pl
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	CBZ XZR, fail
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+pl:
+	STUR X0, [X0, #0]
+	
 fail:
 	finlup: CBZ XZR, finlup
