@@ -64,6 +64,18 @@ mi:
 	ADD XZR, XZR, XZR
 pl:
 	STUR X0, [X0, #0]
-	
+	ADD X0, X0, X8
+vc:	ADDS X30, X30, X30
+	B.VS vs
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	B.VC vc
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+vs:
+	STUR X0, [X0, #0]
+
 fail:
 	finlup: CBZ XZR, finlup
