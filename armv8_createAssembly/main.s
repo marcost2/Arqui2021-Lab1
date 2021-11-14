@@ -89,5 +89,54 @@ ls:	ADDS X30, X30, X30
 
 hi: 
 	STUR X30, [X0, #0]
+	ADDS X1, X1, X1
+	B.GE ge
+	ADD X0, X0, X8
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	CBZ XZR, fail
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+
+ge:
+	STUR X0, [X0, #0]
+	SUBS X1, X1, X3
+	B.LT lt
+	ADD X0, X0, X8
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	CBZ XZR, fail
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+
+lt:
+	STUR X0, [X0, #0]
+	ADDS X1, X1, X2
+	B.GT gt
+	ADD X0, X0, X8
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	CBZ XZR, fail
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+
+gt:
+	STUR X0, [X0, #0]
+	SUBS X3, X3, X3
+	B.le le
+	ADD X0, X0, X8
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	CBZ XZR, fail
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+
+le:
+	STUR X0, [X0, #0]
+
 fail:
 	finlup: CBZ XZR, finlup
