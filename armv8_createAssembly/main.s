@@ -75,7 +75,19 @@ vc:	ADDS X30, X30, X30
 	ADD XZR, XZR, XZR
 	ADD XZR, XZR, XZR
 vs:
-	STUR X0, [X0, #0]
+	STUR X30, [X0, #0]
+	ADD X0, X0, X8
+ls:	ADDS X30, X30, X30
+	B.HI hi
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	B.LS ls
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
 
+hi: 
+	STUR X30, [X0, #0]
 fail:
 	finlup: CBZ XZR, finlup
