@@ -112,7 +112,26 @@ Address Data
 21 0000000000000000
 ~~~
 
-Al darnos cuenta que los resultados no eran los esperados (estipulados por la consigna), decidimos reorganizar el código intercambiando instrucciones de lugar y agregando instrucciones NOP en donde nos pareció correcto. El nuevo código quedó como se muestra a continuación:
+Encontramos un hazard de datos entre las líneas
+~~~assembly
+8   SUB X4, XZR, X10
+9   STUR X4, [X0, #40] 
+~~~
+Se observa en el gráfico en celeste cuando se intenta leer X4 para iniciar el STUR, siendo que la instrucción anterior aún no escribió en X4, parte en color rosa.
+Se produce así el hazard ya que el valor de X4 no fue actualizado cuando comienza su lectura.
+![Hazard de datos](./media/hazard_datos.jpg)
+
+Vemos un hazard de control en las líneas
+~~~assembly
+30   CBZ X0, loop1
+31   STUR X21, [X0, #128] 
+32   
+33   loop1: STUR X21, [X0, #136] 
+~~~
+Se observa en violeta cuando se toma el CBZ, a su vez, en naranja se muestra como se empieza a cargar la instrucción 31 previa al salto, siendo que en el siguiente ciclo se carga la instrucción 33 que es a la que efectivamente se salta.
+![Hazard de control](./media/hazard_control.jpg)
+
+Luego, al darnos cuenta que los resultados no eran los esperados (estipulados por la consigna), decidimos reorganizar el código intercambiando instrucciones de lugar y agregando instrucciones NOP en donde nos pareció correcto. El nuevo código quedó como se muestra a continuación:
 
 ~~~assembly
 1    STUR X1, [X0, #0]
