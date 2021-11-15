@@ -3,8 +3,12 @@ N = .dword 0x40
 */
 	.text
 	.org 0x0000
-	ADD XZR, XZR, XZR
+    STUR X6, [X20, #0]
+    ADD XZR, XZR, XZR
 	ADDS X0, X0, X0
+    LDUR X15, [X20, #0]
+    ADD XZR, XZR, XZR
+	ADD XZR, XZR, XZR
 	B.EQ eq
 	ADD XZR, XZR, XZR
 	ADD XZR, XZR, XZR
@@ -15,7 +19,7 @@ N = .dword 0x40
 	ADD XZR, XZR, XZR
 	
 eq:
-	STUR X0, [X0, #0]
+	STUR X15, [X0, #0]
 	ADDS X0, X0, X8
 	B.NE ne
 	ADD XZR, XZR, XZR
