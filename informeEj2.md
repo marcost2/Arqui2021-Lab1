@@ -57,9 +57,9 @@ Por último, se realizaron las conexiones de la nuevas señal bCondBranch en los
 
 El procesador modificado, se muestra a continuación:
 
-[!Processor](Images/new_datapath2.png)
+![Processor](Images/new_datapath2.png)
 
-[!Datapath](Images/new_datapath2.png)
+![Datapath](Images/new_processor.png)
 
 Las nuevas señalos y módulos descritos anteriormente se muestran en color rojo.
 
