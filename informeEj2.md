@@ -51,7 +51,9 @@ Se agregó un nuevo `flopr_e` al datapath que funciona como registro de las flag
 En el módulo `memory.sv` (que representa la etapa memory del pipeline), se agregó toda la lógica de chequeo de condiciones de saltos correspondientes a las 14 condiciones planteadas en la consigna. Las mismas, setean la señal `bCondBranch` a su valor correspondiente verificando las flags (CPSR) seteadas por otras instrucciones.
 Por ejemplo, si hacemos `ADDS X0, X0, X0` y luego `B.eq eq` se verificará que la flag zero esté en 1 y se tomará el salto.
 
-Por último, se realizaron las conexiones de la nuevas señal bCondBranch en los módulos `controller.sv`, `datapath.sv`, `maindec.sv` y `signext.sv`, reduciendo 1 bit el opcode tal como lo plantea la Green Card LEGv8.
+En el módulo `signext.sv` se agregó la extensión de signo para la instrucción `B.cond`.
+
+Por último, se realizaron las conexiones de la nuevas señal bCondBranch en los módulos `controller.sv`, `datapath.sv` y `maindec.sv`.
 
 ### Diagrama del procesador ###
 
