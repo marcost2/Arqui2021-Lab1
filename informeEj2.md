@@ -6,7 +6,7 @@
 * Bobbiesi Bender, Sofía Antonella.
 * Tolcachir, Marcos.
 
-## Ejercicio 2: Microprocesador con Pipeline ##
+## Ejercicio 2: Implementacion de flags ##
 
 ### Objetivos del ejercicio ###
 
